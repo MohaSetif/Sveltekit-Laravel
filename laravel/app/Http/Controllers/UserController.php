@@ -10,7 +10,7 @@ class UserController extends Controller
 {
     public function index()
     {
-        return response()->json(User::first()->get());
+        return response()->json(User::all());
     }
 
     public function insert(Request $request){

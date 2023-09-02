@@ -17,10 +17,15 @@
     <h1 class="underline font-4xl">
         {data.title}
     </h1>
-    {#each users as user}
-        <h2>{user.name}</h2>
-        <h4>{user.email}</h4>
-        <a href='users/{user.id}'>show</a>
-        <button on:click={() => deleteUser(user.id)}>Delete</button>
-    {/each}
+    
+    {#if users.length === 0}
+        <p>No users found.</p>
+    {:else}
+        {#each users as user}
+            <h2>{user.name}</h2>
+            <h4>{user.email}</h4>
+            <a href='users/{user.id}'>show</a>
+            <button on:click={() => deleteUser(user.id)}>Delete</button>
+        {/each}
+    {/if}
 </main>
