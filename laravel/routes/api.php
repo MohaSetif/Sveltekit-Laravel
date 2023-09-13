@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProductsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,8 +16,11 @@ use App\Http\Controllers\UserController;
 |
 */
 
-Route::get('/users', [UserController::class, 'index']);
-Route::post('/users', [UserController::class, 'insert']);
-Route::put('/users/{id}', [UserController::class, 'update']);
-Route::get('/users/{id}', [UserController::class, 'show']);
-Route::delete('/users/{id}', [UserController::class, 'delete']);
+Route::middleware('auth:sanctum')->group( function () {
+    Route::resource('products', ProductsController::class);
+    Route::post('logout', [UserController::class, 'logoutUser']);
+    Route::get('me', [UserController::class, 'getUserName']);
+});
+
+Route::post('register', [UserController::class, 'createUser']);
+Route::post('login', [UserController::class, 'loginUser']);
